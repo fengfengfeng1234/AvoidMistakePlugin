@@ -1,0 +1,27 @@
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    google()
+    jcenter()
+}
+apply {
+    plugin 'groovy'
+    plugin 'java-gradle-plugin'
+}
+
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation "commons-io:commons-io:2.6"
+    implementation 'com.android.tools.build:transform-api:1.5.0'
+    // Android DSL
+    implementation 'com.android.tools.build:gradle:3.6.2'
+    //implementation 'org.javassist:javassist:3.20.0-GA'
+    // asm
+    implementation 'org.ow2.asm:asm:7.2'
+    implementation 'org.ow2.asm:asm-util:7.2'
+    implementation 'org.ow2.asm:asm-commons:7.2'
+    implementation 'com.quinn.hunter:hunter-transform:0.9.3'
+
+
+}

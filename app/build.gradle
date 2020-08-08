@@ -1,0 +1,91 @@
+println("app build.gradle 开始配置")
+
+
+import com.java.pluginExtends.AvoidMistakeField
+import com.java.pluginExtends.AvoidMistakeMethod
+import com.java.pluginExtends.TestObj
+import com.java.plugins.AvoidMistakesPlugin
+
+//import com.java.plugins.CustomPlugin
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: AvoidMistakesPlugin
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "com.example.myapplication"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName Config.appName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+//    exec {
+//        /**
+//         * workingDir  -> project root
+//         */
+//        workingDir '../'
+//        /**
+//         *  -C 窗口执行立即关闭
+//         */
+//        println "========== 开始  findDns ==========="
+//        commandLine 'sh', "-C", "sh/findDns.sh", 'www.baidu.com', '114.114.114.114', getWorkingDir().toString() + "/app/src/main/assets/debug.txt"
+//        println "========== 结束  findDns ==========="
+//    }
+}
+
+project.afterEvaluate {
+    println "所有模块都已配置完成"
+//    exec {
+//        /**
+//         * workingDir  -> project root
+//         */
+//        workingDir '../'
+//        /**
+//         *  -C 窗口执行立即关闭
+//         */
+//        println "========== 开始  findDns ==========="
+//        commandLine 'sh', "-C", "sh/findDns.sh", 'www.baidu.com', '114.114.114.114', getWorkingDir().toString() + "/app/src/main/assets/debug.txt"
+//        println "========== 结束  findDns ==========="
+//    }
+}
+
+
+avoidMistake {
+
+    // 字段 检测
+    AvoidMistakeField Login = new AvoidMistakeField();
+    Login.className = "com.example.myapplication.ui.login.LoginActivity";
+    Login.fieldName = "HTTP_URL"
+    Login.fieldValue = "https://api.baidu.cn1";
+    fields.put(Login.className, Login)
+
+    //方法 检测
+    AvoidMistakeMethod LoginMethod = new AvoidMistakeMethod()
+    LoginMethod.className = "com.example.myapplication.ui.login.LoginActivity";
+    LoginMethod.methodParentName = "onCreate"
+    LoginMethod.useMethodName = "test"
+    methods.put(LoginMethod.className, LoginMethod)
+}
+
+println("app build.gradle 配置完成")

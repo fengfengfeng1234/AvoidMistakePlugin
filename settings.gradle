@@ -1,0 +1,35 @@
+gradle.addBuildListener(new BuildListener() {
+    @Override
+    void buildStarted(Gradle gradle) {
+        println("buildStarted------------")
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+        println("settingsEvaluated------------")
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+        println("projectsLoaded------------")
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+        /**
+         *
+         */
+        println("projectsEvaluated------------")
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println("buildFinished------------")
+    }
+})
+
+println("========== settings 开始配置  ===========")
+include ':app'
+rootProject.name = "My Application"
+println("========== settings 配置完成  ===========")
+
