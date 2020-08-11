@@ -25,7 +25,7 @@ public class AvoidMistakesPlugin implements Plugin<Project> {
     public void apply(Project target) {
         AppExtension appExtension = target.getExtensions()
                 .findByType(AppExtension.class);
-
+        System.out.println("AvoidMistakesPlugin =====> init ");
         //创建指定扩展
         target.getExtensions().create("avoidMistake", AvoidMistakesExtend.class);
 

@@ -28,6 +28,44 @@ gradle.addBuildListener(new BuildListener() {
     }
 })
 
+
+//当前构建的任务依赖关系图
+gradle.taskGraph.whenReady {
+    TaskExecutionGraph taskGraph ->
+        taskGraph.allTasks.each {
+            Task task ->
+                gradle.println "=========whenReady:taskGraph:${task.getName()}========="
+        }
+        taskGraph.beforeTask {
+            Task task ->
+                gradle.println "=========whenReady:beforeTask:${task.getName()}========="
+        }
+        taskGraph.afterTask {
+            Task task ->
+                gradle.println "=========whenReady:afterTask:${task.getName()}========="
+        }
+}
+
+
+//配置评估监听
+gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+    @Override
+    void beforeEvaluate(Project project) {
+        //项目配置评估前回调
+        gradle.println("=========ProjectEvaluationListener:beforeEvaluate ${project.getName()}=========")
+    }
+
+    @Override
+    void afterEvaluate(Project project, ProjectState state) {
+        //项目配置评估后回调
+        //如果失败,则failure不为null
+        gradle.println("=========ProjectEvaluationListener:afterEvaluate ${state.executed} ${state.failure}=========")
+    }
+})
+
+
+
+
 println("========== settings 开始配置  ===========")
 include ':app'
 rootProject.name = "My Application"
